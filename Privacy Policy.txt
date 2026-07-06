@@ -1,0 +1,7 @@
+Privacy Policy for Himeko Mika Bot
+
+This bot does not collect, store, or share any personal information from users. 
+All data processed by the bot is temporary and only used to provide its features 
+(such as responding to commands). No user data is sold or shared with third parties.
+
+If you have questions, please contact the bot owner.

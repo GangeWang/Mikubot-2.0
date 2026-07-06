@@ -1,0 +1,9 @@
+Terms of Service for Himeko Mika Bot
+
+By using this bot, you agree to the following:
+1. The bot is provided "as is" without any guarantees.
+2. Users must comply with Discord's Terms of Service and Community Guidelines.
+3. The bot owner reserves the right to remove or restrict access at any time.
+4. The bot should not be used for illegal or harmful activities.
+
+If you do not agree, please stop using the bot.
