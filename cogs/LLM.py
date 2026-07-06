@@ -30,9 +30,9 @@ class LLM(commands.Cog):
         await interaction.response.defer()
         await interaction.edit_original_response(content="正在生成回覆...")
 
-        url = "http://127.0.0.1:8008/api/generate"
+        url = "http://100.111.80.10:8008/api/generate"
         data = {
-            "model": "gemma3:12b",
+            "model": "gpt-oss:20b",
             "prompt": f"請用繁體中文回答：{final_prompt}",
             "stream": True
         }
@@ -64,7 +64,7 @@ class LLM(commands.Cog):
             # 把 AI 回覆也加入歷史
             self.histories[user_id].append({"role": "assistant", "content": answer})
         else:
-            await interaction.edit_original_response(content="⚠️ 沒有收到模型回覆")
+            await interaction.edit_original_response(content=":warning: 沒有收到模型回覆")
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(LLM(bot))

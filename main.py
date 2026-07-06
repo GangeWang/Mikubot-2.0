@@ -7,6 +7,7 @@ bot = commands.Bot(command_prefix=".", intents=intents)
 
 @bot.event
 async def setup_hook():
+    # 載入所有的 Cogs
     await bot.load_extension("cogs.core")
     await bot.load_extension("cogs.time_task")
     await bot.load_extension("cogs.gacha")
@@ -14,4 +15,5 @@ async def setup_hook():
     await bot.load_extension("cogs.comfy_AI")
     await bot.load_extension("cogs.LLM")
 bot.run("")
+
 

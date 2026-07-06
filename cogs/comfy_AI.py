@@ -16,16 +16,18 @@ class comfy_AI(commands.Cog):
     @app_commands.command(name="畫圖", description="讓初音畫圖")
     @app_commands.describe(prompt="你想畫什麼？")
     async def draw(self, interaction: discord.Interaction, prompt: str):
+
         user_id = interaction.user.id
         now = time.time()
 
         # 檢查冷卻
-        if user_id in self.cooldowns and now - self.cooldowns[user_id] < 300:
-            remain = int(300 - (now - self.cooldowns[user_id]))
+        if user_id in self.cooldowns and now - self.cooldowns[user_id] < 120 and user_id!=277692370622087168:
+            remain = int(120 - (now - self.cooldowns[user_id]))
             await interaction.response.send_message(f"⏳ 請等 {remain} 秒再使用這個指令", ephemeral=True)
             return
 
         # 記錄使用時間
+
         self.cooldowns[user_id] = now
         await interaction.response.send_message(f"🎨 正在生成：{prompt}")
         if prompt.strip() == "":
@@ -33,7 +35,7 @@ class comfy_AI(commands.Cog):
             return
 
         # 1. 載入 workflow
-        with open(r"E:\DiscordBot\DiscordBot_workflow.json", "r", encoding="utf-8") as f:
+        with open(r"/home/gange/Desktop/discordbot/DiscordBot_Anything.json", "r", encoding="utf-8") as f:
             prompt_graph = json.load(f)
 
         # 修改正面提示詞 (id=13 的 CLIPTextEncode)
@@ -42,7 +44,7 @@ class comfy_AI(commands.Cog):
 
         # 2. 發送到 ComfyUI
         try:
-            r = requests.post("http://127.0.0.1:8188/prompt", json={"prompt": prompt_graph})
+            r = requests.post("http://100.111.80.10:8188/prompt", json={"prompt": prompt_graph})
             r.raise_for_status()
             task_id = r.json()["prompt_id"]
         except Exception as e:
@@ -53,7 +55,7 @@ class comfy_AI(commands.Cog):
         result = None
         for _ in range(60):
             try:
-                res = requests.get(f"http://127.0.0.1:8188/history/{task_id}")
+                res = requests.get(f"http://100.111.80.10:8188/history/{task_id}")
                 data = res.json()
                 if task_id in data:
                     result = data[task_id]
@@ -80,7 +82,7 @@ class comfy_AI(commands.Cog):
             return
 
         # 5. 下載圖片
-        url = f"http://127.0.0.1:8188/api/view?filename={filename}&type=temp&subfolder="
+        url = f"http://100.111.80.10:8188/api/view?filename={filename}&type=temp&subfolder="
         print(url)
         try:
             image_data = requests.get(url).content

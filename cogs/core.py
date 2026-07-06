@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 
 class Core(commands.Cog):
@@ -8,6 +7,12 @@ class Core(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f"已登入為 {self.bot.user}")
+        print(f"目前加入了 {len(self.bot.guilds)} 個伺服器")
+        '''for guild in self.bot.guilds:
+            allowed = [1223275274951463006, 675695004101902366,948513995348910140,]  # 允許的 guild ID
+            if guild.id not in allowed:
+                print(f"離開未知伺服器: {guild.name} ({guild.id})")
+                await guild.leave()'''
         try:
             synced = await self.bot.tree.sync()
             print(f"成功同步 {len(synced)} 個指令")
